@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- VISTAS -->
+        <!-- form --> 
+        <record id="idea_view_form" model="ir.ui.view" >
+            <field name="name">memento.idea.form</field>
+            <field name="model">memento.idea</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Idea">
+                    <field name="name"/>
+                    <field name="description"/>    
+                    <field name="category_id"/>      
+                </form>
+            </field>
+        </record>
+        
+        <!-- search -->
+        <record id="view_idea_filter" model="ir.ui.view">
+            <field name="name">memento.idea.select</field> 
+            <field name="model">memento.idea</field> 
+            <field name="type">search</field> 
+            <field name="arch" type="xml">
+                <search string="Search Ideas">
+                    <group col='6' colspan='4'>     
+                        <filter string="My Ideas" icon="terp-partner"
+                            domain="[('create_uid','=',uid)]" 
+                            help="My own ideas"/>
+                        <field name="name" select="1"/>
+                        <field name="category_id" select="1"/>
+                        
+                   <!--        
+                        <field name="description" select="1"/>
+                        <field name="inventor_id" select="1"/>
+                        <field name="inventor_country" select="1" widget="selection" context="{'inventor_contry': self}"/>
+                       --> 
+                    </group>
+                </search>
+            </field> 
+        </record>        
+        
+        
+        <!-- tree --> 
+        <record id="idea_view_tree" model="ir.ui.view" >
+            <field name="name">memento.idea.tree</field>
+            <field name="model">memento.idea</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <form string="Idea">
+                    <field name="name"/>
+                    <field name="category_id"/>      
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_category_tree" model="ir.ui.view">
+            <field name="name">memento.category.tree</field> 
+            <field name="model">memento.category</field> 
+            <field name="type">tree</field> 
+        <!--    <field name="field_parent">child_ids</field> -->
+            <field name="arch" type="xml">
+                <tree string="Categories">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- ACCIONES --> 
+        
+        
+        <record id="action_memento_idea_ideas_all" model="ir.actions.act_window">
+            <field name="name">All ideas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">memento.idea</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_idea_filter"/>
+            <field name="view_mode">tree,form,calendar,graph,gantt</field>
+        </record>
+        
+        <record id="action_memento_idea_ideas_form" model="ir.actions.act_window">
+            <field name="name">One idea!</field>
+            <!-- <field name="view_id" href="idea_view_form"/> -->
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">memento.idea</field>
+            <field name="view_type">form</field>   
+            <field name="view_mode">form</field>
+        </record>
+        
+        
+        <record id="action_memento_idea_categories_all" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">memento.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_memento_idea_categories_tree" model="ir.actions.act_window">
+            <field name="name">Category Structure</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">memento.category</field>
+            <field name="view_id" ref="view_category_tree"/>
+            <field name="view_type">tree</field>
+            <field name="domain">[('parent_id', '=', False)]</field>
+        </record>
+        
+        
+        <!-- MENUS --> 
+        <menuitem id="menu_memento_idea" name="Idea!" 
+            action="action_memento_idea_ideas_form" sequence="1"/>
+        <menuitem id="menu_memento_idea_config" name="Configuration" 
+            parent="menu_memento_idea" sequence="10"/>
+        
+        <!-- ver categorías desde configuracion -->
+        <menuitem id="menu_memento_idea_categories_list" 
+            parent="menu_memento_idea_config" 
+            action="action_memento_idea_categories_all"
+            sequence="10"/>
+         <menuitem id="menu_memento_idea_categories_tree" 
+            parent="menu_memento_idea_config" 
+            action="action_memento_idea_categories_tree"
+            sequence="20"/>
+        
+        
+        
+        
+        <menuitem id="menu_memento_idea_idea_list" 
+            parent="menu_memento_idea" 
+            action="action_memento_idea_ideas_all"
+            sequence="20"/>
+
+    </data>
+</openerp>
