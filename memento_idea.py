@@ -35,13 +35,62 @@ class memento_vote(osv.osv):
     }
 memento_vote()
 
-'''
+
 class memento_idea2(osv.osv):
-    _name = ?? 
-    _inherit = memento_idea
+    _name = 'memento.idea'
+    _inherit = 'memento.idea'
+ 
+    # busca la idea de la cual se deben actualizar campos
+    def _get_idea_from_vote(self,cr,uid,ids,context={}):
+        res = {}
+        vote_ids = self.pool.get('memento.vote').browse(cr,uid,ids,context=context)        
+        for v in vote_ids:
+            res[v.idea_id.id] = True 
+            print('---------------v.idea_id.id: ')
+            print(v.idea_id.id)
+        return res.keys()
  
  
+    def _compute(self,cr,uid,ids,field_name,arg,context={}):
+        res = {}
+        for idea in self.browse(cr,uid,ids):
+            vote_num = len(idea.vote_ids)
+        #    vote_sum = sum([v.vote for v in idea.vote_ids])        
+
+            #import ipdb
+            #ipdb.set_trace()
+            
+
+                                   
+            res[idea.id] = vote_num
+            
+            
+            #    'vote_num' : vote_num,                
+            #    'vote_avg': vote_sum/vote_num   , 
+            
+            
+            print '---------------- tipo de vote_num:'
+            print type(vote_num)
+         #   print '---------------- tipo de vote_sum:'
+         #   print type(vote_sum)
+            
+        
+        import traceback
+        traceback.print_stack()
+        return res
+    
+    _columns = {
+        'vote_ids': fields.one2many('memento.vote', 'idea_id', 'Votes'),
+        'vote_num': fields.function(_compute,method=True,string='Vote Count',
+            store= {
+            'memento.vote':(_get_idea_from_vote,['vote'],10)
+            }),
+    }
+    
+    '''    'vote_avg': fields.function(_compute,method=True,string='Vote Count',
+            store= {
+            'memento.vote':(_get_idea_from_vote,['vote'],10)
+            }),
+    '''
  
 memento_idea2()
-    
-'''
