@@ -51,7 +51,22 @@
                 </search>
             </field> 
         </record>        
-        
+        <record id="view_vote_filter" model="ir.ui.view">
+            <field name="name">memento.vote.select</field> 
+            <field name="model">memento.vote</field> 
+            <field name="type">search</field> 
+            <field name="arch" type="xml">
+                <search string="Search Votes">
+                    <group col='6' colspan='4'>     
+                        <filter string="My Votes" icon="terp-partner"
+                            domain="[('partner_id','=',uid)]" 
+                            help="My votes"/>
+                        <field name="partner_id" select="1"/>
+                        <field name="idea_id" select="1"/>
+                    </group>
+                </search>
+            </field> 
+        </record>  
         
         <!-- tree --> 
         <record id="idea_view_tree" model="ir.ui.view" >
