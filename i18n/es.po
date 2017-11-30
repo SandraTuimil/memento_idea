@@ -1,0 +1,177 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* memento_idea
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-22 10:12+0000\n"
+"PO-Revision-Date: 2017-11-22 10:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: memento_idea
+#: field:memento.idea,category_id:0
+msgid "Category"
+msgstr "Categoría"
+
+#. module: memento_idea
+#: model:ir.actions.act_window,name:memento_idea.action_memento_idea_vote_all
+#: model:ir.ui.menu,name:memento_idea.menu_memento_idea_vote_list
+#: field:memento.idea,vote_ids:0
+#: view:memento.vote:0
+msgid "Votes"
+msgstr "Votos"
+
+#. module: memento_idea
+#: field:memento.category,name:0
+#: field:memento.idea,name:0
+msgid "Title"
+msgstr "Título"
+
+#. module: memento_idea
+#: view:memento.vote:0
+msgid "My votes"
+msgstr "Mis Votos"
+
+#. module: memento_idea
+#: field:memento.idea,vote_num:0
+msgid "Vote Count"
+msgstr "Cómputo de Votos"
+
+#. module: memento_idea
+#: view:memento.idea:0
+msgid "Ideas"
+msgstr "Ideas"
+
+#. module: memento_idea
+#: field:memento.category,child_ids:0
+msgid "Child Categories"
+msgstr Categorías Hijas"
+
+#. module: memento_idea
+#: model:ir.actions.act_window,name:memento_idea.action_memento_idea_ideas_form
+msgid "One idea!"
+msgstr "¡Una idea!"
+
+#. module: memento_idea
+#: view:memento.idea:0
+msgid "Search Ideas"
+msgstr "Buscar Ideas"
+
+#. module: memento_idea
+#: view:memento.idea:0
+msgid "My own ideas"
+msgstr "Mis Ideas"
+
+#. module: memento_idea
+#: field:memento.category,description:0
+#: field:memento.idea,description:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: memento_idea
+#: view:memento.vote:0
+msgid "My Votes"
+msgstr "Mis Votos"
+
+#. module: memento_idea
+#: model:ir.actions.act_window,name:memento_idea.action_memento_idea_categories_tree
+#: model:ir.ui.menu,name:memento_idea.menu_memento_idea_categories_tree
+msgid "Category Structure"
+msgstr "Estructura de Categorías"
+
+#. module: memento_idea
+#: view:memento.vote:0
+msgid "Search Votes"
+msgstr "Buscar Votos"
+
+#. module: memento_idea
+#: model:ir.model,name:memento_idea.model_memento_idea
+msgid "memento.idea"
+msgstr "memento.idea"
+
+#. module: memento_idea
+#: model:ir.ui.menu,name:memento_idea.menu_memento_idea_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: memento_idea
+#: model:ir.actions.act_window,name:memento_idea.action_memento_idea_categories_all
+#: model:ir.ui.menu,name:memento_idea.menu_memento_idea_categories_list
+#: view:memento.category:0
+msgid "Categories"
+msgstr "Categorías"
+
+#. module: memento_idea
+#: field:memento.category,parent_id:0
+msgid "Parent Category"
+msgstr "Categoría Padre"
+
+#. module: memento_idea
+#: model:res.groups,name:memento_idea.memento_group_idea_manager
+msgid "Idea / Manager"
+msgstr "Idea / Manager"
+
+#. module: memento_idea
+#: view:memento.idea:0
+msgid "My Ideas"
+msgstr "Mis Ideas"
+
+#. module: memento_idea
+#: view:memento.vote:0
+msgid "Vote form"
+msgstr "Vote form"
+
+#. module: memento_idea
+#: model:ir.ui.menu,name:memento_idea.menu_memento_idea
+msgid "Idea!"
+msgstr "¡Idea!"
+
+#. module: memento_idea
+#: model:ir.model,name:memento_idea.model_memento_vote
+msgid "memento.vote"
+msgstr "memento.vote"
+
+#. module: memento_idea
+#: field:memento.idea,vote_avg:0
+msgid "Vote Average"
+msgstr "Media de votos"
+
+#. module: memento_idea
+#: view:memento.idea:0
+#: field:memento.vote,idea_id:0
+msgid "Idea"
+msgstr "Idea"
+
+#. module: memento_idea
+#: model:ir.model,name:memento_idea.model_memento_category
+msgid "memento.category"
+msgstr "memento.category"
+
+#. module: memento_idea
+#: model:ir.actions.act_window,name:memento_idea.action_memento_idea_ideas_all
+#: model:ir.ui.menu,name:memento_idea.menu_memento_idea_idea_list
+msgid "All ideas"
+msgstr "Todas las ideas"
+
+#. module: memento_idea
+#: field:memento.vote,vote:0
+msgid "Vote"
+msgstr "Voto"
+
+#. module: memento_idea
+#: field:memento.vote,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: memento_idea
+#: field:memento.vote,id:0
+msgid "Id"
+msgstr "Id"
+

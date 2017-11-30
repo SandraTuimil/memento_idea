@@ -12,6 +12,14 @@ class memento_category(osv.osv):
 memento_category()
 
 
+class memento_comment(osv.osv):
+    _name = 'memento.comment'
+    _columns = {
+        'content': fields.text('Comment'),
+        'idea_id': fields.many2one('memento.idea','Idea'),
+    }
+memento_comment()
+
 
 class memento_idea(osv.osv):
     _name = 'memento.idea'
@@ -19,7 +27,19 @@ class memento_idea(osv.osv):
         'name': fields.char('Title', size=64, required=True, translate=True),
         'description': fields.text('Description'),
         'category_id': fields.many2one('memento.category','Category'),
+        'inventor_id': fields.many2one('res.partner','Inventor'),
+        'inventor_country_id': fields.related('inventor_id','country',
+            readonly=True, type = 'many2one',
+            relation='res.country', string='Country'),
+        'comment_ids': fields.one2many('memento.comment','idea_id','Comments'),
+        'active': fields.boolean('Active', select=True),
     }
+    
+    _defaults = {
+        'active': lambda *a: True,
+#        'state': lambda *a: 'draft',
+    }
+    
 memento_idea()
 
 

@@ -9,9 +9,10 @@
   
     'depends' :  ['base']  ,
     'update_xml' :  [   
-        'view/views.xml',
         'security/groups.xml',
-        'security/ir.model.access.csv',
+        'security/ir.model.access.csv',      
+        'view/views.xml',
+
     
     
     ]  ,

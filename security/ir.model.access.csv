@@ -1,4 +1,3 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-memento_probas_idea,memento_probas_idea_name,model_memento_idea,memento_group_idea_manager,1,1,1,1
-memento_probas_category,memento_probas_category_name,model_memento_category,memento_group_idea_manager,1,1,1,1
-memento_probas_vote,memento_probas_vote_name,model_memento_vote,memento_group_idea_manager,1,1,1,1
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_memento_idea","memento.idea","model_memento_idea","memento_group_idea_manager","1","1","1","1"
+

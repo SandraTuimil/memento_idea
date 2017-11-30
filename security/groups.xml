@@ -2,7 +2,7 @@
 <openerp>
     <data>
 	<record id="memento_group_idea_manager" model="res.groups">
-            <field name="name">Idea / Manager</field>
+            <field name="name">Memento-Idea / Manager</field>
 	</record>
     </data>
 </openerp>
