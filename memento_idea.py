@@ -25,7 +25,11 @@ class memento_idea(osv.osv):
     _name = 'memento.idea'
     _columns = {
         'name': fields.char('Title', size=64, required=True, translate=True),
-        'description': fields.text('Description'),
+        'state': fields.selection([('draft','Draft'),('in_valuation','in valuation'),
+                                ('accepted','Accepted'),('confirmed','Confirmed'),('closed','Closed')],
+            'State',required=True, readonly=True),
+        'description': fields.text('Description', readonly=True, 
+                    states={'draft':[('readonly',False)]}),
         'category_id': fields.many2one('memento.category','Category'),
         'inventor_id': fields.many2one('res.partner','Inventor'),
         'inventor_country_id': fields.related('inventor_id','country',
@@ -34,11 +38,20 @@ class memento_idea(osv.osv):
         'comment_ids': fields.one2many('memento.comment','idea_id','Comments'),
         'active': fields.boolean('Active', select=True),
     }
+  #  def get_employee_from_user: 
     
     _defaults = {
         'active': lambda *a: True,
-#        'state': lambda *a: 'draft',
+        'state': lambda *a: 'draft',
     }
+    _sql_constraints = [('name_uniq','unique(name)', 'Idea must be unique!')]
+    
+    def create(self, cr, uid, vals, context=None):
+        vals.update({'state': 'in_valuation'})
+        return super(memento_idea,self).create(cr, uid, vals, context=context)
+        
+    
+    
     
 memento_idea()
 
@@ -49,10 +62,20 @@ class memento_vote(osv.osv):
     _columns = {
         'id': fields.integer('Id'),
         'vote': fields.float('Vote',digits=(2,1)),
-        'partner_id': fields.many2one('res.partner','Partner'),
+        'partner_id': fields.many2one('res.partner','Partner' ),
         'idea_id': fields.many2one('memento.idea','Idea'),
     
     }
+    
+    _sql_constraints = [('partner_idea_unique', 'unique(partner_id,idea_id)', 'Un usuario sólo puede votar una idea una vez. ')]
+
+
+
+    def create(self, cr, uid, vals, context=None):
+        vals.update({'partner_id': uid})
+        return super(memento_vote,self).create(cr, uid, vals, context=context)
+    
+    
 memento_vote()
 
 
@@ -87,7 +110,8 @@ class memento_idea2(osv.osv):
         return res
     
     _columns = {
-        'vote_ids': fields.one2many('memento.vote', 'idea_id', 'Votes'),
+        'vote_ids': fields.one2many('memento.vote', 'idea_id', 'Votes', 
+                        readonly=True),
         'vote_num': fields.function(_compute,method=True,string='Vote Count',multi='votes',
             store= {
             'memento.vote':(_get_idea_from_vote,['vote'],10)

@@ -9,35 +9,49 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Idea">
-                    <field name="name"/>
-                    <field name="description"/>    
-                    <field name="category_id"/>                        
+                    <group col="6" colspan="6">
+                        <field name="name" />   
+                        <field name="category_id"/> 
+                        <field name="inventor_id"/> 
+                        <field name="inventor_country_id"/>    
+                        <field name="state"/>                        
+                        <group string="Descripción" colspan="6" >
+                            <field name="description" widget="text_wiki" nolabel="1"/> 
+                        </group>   
+                    </group>
+                    <group col="6" attrs="{'invisible':[('state','=','draft')]}">
+                        <notebook colspan="4">
+                            <page string="Comentarios">
+                                <field name="comment_ids"/>
+                            </page>
+                            <page string="Votos" attrs="{'invisible':[('state','=','closed')]}">
+                                <field mode="tree" name="vote_ids" nolabel="1">
+                                    <tree string="Votes">
+                                        <field name="vote"/>
+                                        <field name="partner_id"/>  
+                                    </tree> 
+                                </field>
+                            </page>
+                        </notebook> 
+                    </group>
+                 <!--     <group col="6">
+                      <button type="" name="" string="Votar" states='in_valuation'/>     
+                    </group> -->                                                         
                 </form>
             </field>
         </record>
-        <record id="idea_details_view_form" model="ir.ui.view" >
-            <field name="name">memento.idea.form</field>
-            <field name="model">memento.idea</field>
+        <record id="comment_view_form" model="ir.ui.view" >
+            <field name="name">memento.comment.form</field>
+            <field name="model">memento.comment</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Idea">
-                    <group col="6" colspan="4">
-                        <field name="name"/>   
-                        <field name="category_id"/> 
-                        <field name="inventor_id"/> 
-                        <field name="inventor_country_id"/>                       
-                    </group>
-                    <notebook colspan="4">
-                        <page string="General">
-                            <field colspan="4" name="description" widget="text_wiki" nolabel="1"/>
-                        </page>
-                        <page string="Comentarios">
-                            <field name="comment_ids"/>
-                        </page>
-                    </notebook>                         
+                <form string="Comment">
+                    <group string="Comment">
+                        <field name="content" widget="text_wiki" nolabel="1"/> 
+                    </group> 
                 </form>
             </field>
-        </record>        
+        </record>
         <record id="vote_view_form" model="ir.ui.view">
             <field name="name">memento.vote.form</field> 
             <field name="model">memento.vote</field> 
@@ -100,6 +114,7 @@
                     <field name="vote_num"/> 
                     <field name="vote_avg"/>
                     <field name="inventor_id"/> 
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -137,16 +152,17 @@
             <field name="res_model">memento.idea</field>
             <field name="view_type">form</field>
             <field name="search_view_id" ref="view_idea_filter"/>
+            <field name="view_id" ref="idea_view_tree"/>
             <field name="view_mode">tree,form,calendar,graph,gantt</field>
         </record>
-        <record id="action_idea_details" model="ir.actions.act_window">
+   <!--     <record id="action_idea_details" model="ir.actions.act_window">
             <field name="name">Idea details</field>
             <field name="view_id" ref="idea_details_view_form"/> 
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">memento.idea</field>
             <field name="view_type">form</field>   
             <field name="view_mode">form</field>
-        </record>
+        </record> -->
         <record id="action_memento_idea_ideas_form" model="ir.actions.act_window">
             <field name="name">One idea!</field>
             <field name="view_id" ref="idea_view_form"/> 
@@ -181,6 +197,15 @@
             <field name="view_mode">tree,form</field>      
         </record>  
         
+   <!--     <record id="action_memento_votar_wizard" model="ir.actions.act_window">
+            <field name="name">Votar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model"></field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>      
+        </record>  -->
+        
+        
         <!-- MENUS --> 
         <menuitem id="menu_memento_idea" name="Idea!" 
             action="action_memento_idea_ideas_form" sequence="1"/>
@@ -197,11 +222,16 @@
         <menuitem id="menu_memento_idea_idea_list" name="All Ideas"
             parent="menu_memento_idea_ideas" 
             action="action_memento_idea_ideas_all"
-            sequence="10"/> 
-        <menuitem id="menu_memento_idea_ideas_idea_details" name="Idea details" 
+            sequence="10"/>
+        <menuitem id="menu_memento_idea_ideas_categorias" name="Ideas por categorías"
             parent="menu_memento_idea_ideas" 
-            action="action_idea_details"
-            sequence="20"/>  
+            action="action_memento_idea_ideas_all"
+            sequence="11"/> 
+    <!--    <menuitem id="wizard_votar" name="Votar"
+            parent="menu_memento_idea_ideas" 
+            action="action_memento_votar_wizard"
+            sequence="20"/>  -->
+        
         
         
         <!-- submenús de configuracion -->
@@ -216,9 +246,7 @@
         <menuitem id="menu_memento_idea_vote_list" 
             parent="menu_memento_idea_config" 
             action="action_memento_idea_vote_all"
-            sequence="21"/>
-
-        
+            sequence="21"/>     
         
         
 

@@ -4,5 +4,8 @@
 	<record id="memento_group_idea_manager" model="res.groups">
             <field name="name">Memento-Idea / Manager</field>
 	</record>
+        <record id="memento_group_idea_user" model="res.groups">
+            <field name="name">Memento-Idea / User</field>
+	</record>
     </data>
 </openerp>

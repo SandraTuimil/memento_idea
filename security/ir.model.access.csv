@@ -1,3 +1,8 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 "access_memento_idea","memento.idea","model_memento_idea","memento_group_idea_manager","1","1","1","1"
-
+"access_memento_vote","memento.vote","model_memento_vote","memento_group_idea_manager","1","1","1","1"
+"access_memento_comment","memento.comment","model_memento_comment","memento_group_idea_manager","1","1","1","1"
+"access_memento_idea_users","memento.idea","model_memento_idea","memento_group_idea_user","1","1","1","0"
+"access_memento_vote_users","memento.vote","model_memento_vote","memento_group_idea_user","1","1","1","0"
+"access_memento_comment_users","memento.comment","model_memento_comment","memento_group_idea_user","1","1","1","0"
+"access_memento_category_users","memento.category","model_memento_category","memento_group_idea_user","1","0","0","0"
