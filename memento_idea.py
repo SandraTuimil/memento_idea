@@ -32,11 +32,13 @@ class memento_idea(osv.osv):
                     states={'draft':[('readonly',False)]}),
         'category_id': fields.many2one('memento.category','Category'),
         'inventor_id': fields.many2one('res.partner','Inventor'),
-        'inventor_country_id': fields.related('inventor_id','country',
-            readonly=True, type = 'many2one',
-            relation='res.country', string='Country'),
+        'inventor_company_id': fields.related('inventor_id','company_id',
+            readonly=True, type='many2one',
+            relation='res.company', string='Inventor Company'),
         'comment_ids': fields.one2many('memento.comment','idea_id','Comments'),
         'active': fields.boolean('Active', select=True),
+        'creator_id': fields.many2one('res.users','Creator', readonly=True),
+        'voto_pruebas': fields.float('Vote',digits=(2,1)),
     }
   #  def get_employee_from_user: 
     
@@ -48,6 +50,7 @@ class memento_idea(osv.osv):
     
     def create(self, cr, uid, vals, context=None):
         vals.update({'state': 'in_valuation'})
+        vals.update({'creator_id':uid})
         return super(memento_idea,self).create(cr, uid, vals, context=context)
         
     
@@ -62,9 +65,9 @@ class memento_vote(osv.osv):
     _columns = {
         'id': fields.integer('Id'),
         'vote': fields.float('Vote',digits=(2,1)),
-        'partner_id': fields.many2one('res.partner','Partner' ),
-        'idea_id': fields.many2one('memento.idea','Idea'),
-    
+        'partner_id': fields.many2one('res.partner','Partner', ondelete = "restrict"),
+        'idea_id': fields.many2one('memento.idea','Idea',  ondelete = "restrict"),
+        'creator_id': fields.many2one('res.users','Creator', readonly=True),
     }
     
     _sql_constraints = [('partner_idea_unique', 'unique(partner_id,idea_id)', 'Un usuario sólo puede votar una idea una vez. ')]
@@ -72,7 +75,10 @@ class memento_vote(osv.osv):
 
 
     def create(self, cr, uid, vals, context=None):
-        vals.update({'partner_id': uid})
+        vote_ids = self.pool.get('memento.vote').browse(cr,uid,ids,context=context)    
+        
+        vals.update({'creator_id': uid})
+        
         return super(memento_vote,self).create(cr, uid, vals, context=context)
     
     
@@ -100,8 +106,11 @@ class memento_idea2(osv.osv):
             # import ipdb; ipdb.set_trace()
             vote_num = len(idea.vote_ids)
             vote_sum = sum([v.vote for v in idea.vote_ids])     
-
-            vote_avg = vote_sum / vote_num
+            
+            if vote_num != 0: 
+                vote_avg = vote_sum / vote_num
+            else: 
+                vote_avg = 0
                                            
             res[idea.id] = {
                 'vote_num' : vote_num,
@@ -121,4 +130,11 @@ class memento_idea2(osv.osv):
             'memento.vote':(_get_idea_from_vote,['vote'],10)
             }),            
     }
+    
+    
+    def votar(self,cr,uid,ids,arg,context={}):
+        print('------------------ !!!!!!VOTAR!!!!!!!!!---------------')
+        return True
+        
+        
 memento_idea2()
