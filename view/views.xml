@@ -35,16 +35,15 @@
                             </page>
                         </notebook> 
                     </group>
-                    <group colspan="6" attrs="{'invisible':[('state','in','draft,accepted,confirmed,closed')]}">
+                    <group colspan="6" states='in_valuation' >
                         <notebook colspan="4">
-                            <page string="Votar">
+                            <page string="Mi Voto">
                                 <field name="voto_pruebas" nolabel="1"/>
-                                <button type="object" name="votar" string="Votar Pruebas" states='in_valuation' colspan="1"/>  
+                                <button type="object" name="votar" string="Votar Pruebas"  colspan="1"/>  
                             </page>
                         </notebook> 
                     </group>
-                    <group col="6" colspan="6">
-                        
+                    <group col="6" colspan="6">                        
                         <button type="workflow" string="Accept" states="in_valuation" name="button_accept"/>
                         <button type="workflow" string="Confirm" states="accepted" name="button_confirm"/>
                         <button type="workflow" string="Close" states="confirmed" name="button_close"/>
@@ -165,6 +164,7 @@
             <field name="arch" type="xml">
                 <tree string="Votes">
                     <field name="vote"/>
+                    <field name="creator_id"/>
                     <field name="partner_id"/>   
                     <field name="idea_id"/>   
                 </tree>
@@ -222,13 +222,14 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="vote_view_form2"/>     
         </record>
-   <!--     <record id="action_memento_votar_wizard" model="ir.actions.act_window">
+        <record id="action_memento_votar_wizard" model="ir.actions.act_window">
             <field name="name">Votar</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model"></field>
+            <field name="res_model">memento_idea.wizard.vote_wzr</field>
             <field name="view_type">form</field>
+            <field name="view_mode">form</field>
             <field name="target">new</field>      
-        </record>  -->
+        </record>   
         
         
         <!-- MENUS --> 
@@ -252,10 +253,10 @@
             parent="menu_memento_idea_ideas" 
             action="action_memento_idea_ideas_all"
             sequence="11"/> 
-    <!--    <menuitem id="wizard_votar" name="Votar"
+        <menuitem id="wizard_votar" name="Votar"
             parent="menu_memento_idea_ideas" 
             action="action_memento_votar_wizard"
-            sequence="20"/>  -->
+            sequence="20"/>  
         
         
         

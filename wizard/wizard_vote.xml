@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
-    </data>
-    
+        <record id="wizard_view_vote_form" model="ir.ui.view" >
+            <field name="name">wizard.view.vote.form</field>
+            <field name="model">memento_idea.wizard.vote_wzr</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Mi voto">
+                   <field name="voto"/> 
+                   <field name="idea"/> 
+                   <field name="usuario"/>                               
+                </form>
+            </field>
+        </record>
+    </data>    
 </openerp>
 
