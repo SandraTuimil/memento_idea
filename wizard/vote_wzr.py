@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from osv import fields,osv
 import datetime
+
+
 class vote_wzr(osv.osv_memory):
     _name = 'memento_idea.wizard.vote_wzr'
 
@@ -17,19 +19,27 @@ class vote_wzr(osv.osv_memory):
             res.append((i.id,i.name))
         return res
 
+        
+    def get_usuario(self,cr,uid,ids):
+        return uid
+        
     _columns = {
         'voto': fields.float('Vote',digits=(2,1)),        
         'idea': fields.selection(list_ideas, 'Idea', help='Ideas que no he votado'),
         'usuario': fields.integer('User', readonly=True)
     }
     
+    _defaults = {
+        'usuario' : get_usuario    
+    }
     
+
     def cleanup(self, cr, uid, ids, context={}):
         voto = self.pool.get('memento.vote')
         
         for w in self.browse(cr,uid,ids):     
             voto.votar(cr, uid, w.idea,w.voto)
-    
-
+                      
+        return {'type': 'ir.actions.act_window_close'}
         
 vote_wzr()

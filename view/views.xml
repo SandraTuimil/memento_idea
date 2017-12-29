@@ -37,9 +37,8 @@
                     </group>
                     <group colspan="6" states='in_valuation' >
                         <notebook colspan="4">
-                            <page string="Mi Voto">
-                                <field name="voto_pruebas" nolabel="1"/>
-                                <button type="object" name="votar" string="Votar Pruebas"  colspan="1"/>  
+                            <page string="Mi Voto">                                
+                            
                             </page>
                         </notebook> 
                     </group>
@@ -230,7 +229,7 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>      
         </record>   
-        
+
         
         <!-- MENUS --> 
         <menuitem id="menu_memento_idea" name="Idea!" 

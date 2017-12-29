@@ -9,10 +9,24 @@
                 <form string="Mi voto">
                    <field name="voto"/> 
                    <field name="idea"/> 
-                   <field name="usuario"/>                               
+                   <field name="usuario"/>  
+                   <newline/>    
+                   <button string="Cancel" special="cancel" icon="gtk-cancel"/>
+                   <button string="Votar" name="cleanup" type="object" icon="gtk-ok"/>                      
                 </form>
             </field>
         </record>
+        <!-- ACCIÓN, PRUEBAS: -->
+        <record id="action_wizard_view_vote_form" model="ir.actions.act_window">
+            <field name="name">Vote Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">memento_idea.wizard.vote_wzr</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+
     </data>    
 </openerp>
 

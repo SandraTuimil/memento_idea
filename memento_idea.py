@@ -38,24 +38,20 @@ class idea(osv.osv):
         'comment_ids': fields.one2many('memento.comment','idea_id','Comments'),
         'active': fields.boolean('Active', select=True),
         'creator_id': fields.many2one('res.users','Creator', readonly=True),
-        'voto_pruebas': fields.float('Vote',digits=(2,1)),# sólo para probar 
     }
-  #  def get_employee_from_user: 
-    
+
     _defaults = {
         'active': lambda *a: True,
         'state': lambda *a: 'draft',
     }
     _sql_constraints = [('name_uniq','unique(name)', 'Idea must be unique!')]
     
+    
     def create(self, cr, uid, vals, context=None):
         vals.update({'state': 'in_valuation'})
         vals.update({'creator_id':uid})
         return super(idea,self).create(cr, uid, vals, context=context)
-        
-    
-    
-    
+
 idea()
 
 
@@ -89,6 +85,7 @@ class vote(osv.osv):
             posible_voto.pop()
         except: 
             self.pool.get('memento.vote').create(cr, uid, {'idea_id':id_idea, 'vote':voto_pruebas})
+            return True
 vote()
 
 
@@ -148,10 +145,6 @@ class idea2(osv.osv):
 
     def votar(self,cr,uid,ids,arg,context={}):
         idea = self.pool.get('memento.idea').browse(cr,uid,ids,context=context) 
-        
-        
-#        id_idea = 1
-#        for i in idea: id_idea = i.id
         
         vote_object =  self.pool.get('memento.vote')
         
